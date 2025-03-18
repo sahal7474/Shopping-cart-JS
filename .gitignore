@@ -1,6 +1,6 @@
 # Ignore node_modules directory (contains all dependencies)
 node_modules/
-
+public/
 # Ignore log files
 *.log
 
