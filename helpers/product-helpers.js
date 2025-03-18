@@ -1,5 +1,6 @@
 const db = require('../config/connection')
 let collection = require('../config/collections')
+const { ObjectId } = require('mongodb');
 
 module.exports={
 
@@ -10,7 +11,7 @@ module.exports={
         })
     },
 
-    getAllProducts: () => {
+    getAllProducts:() => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCT_COLLECTION).find().toArray() // Convert the cursor to an array
             .then(data => {
@@ -20,6 +21,14 @@ module.exports={
                     reject(err); // Reject the promise with the error
                 });
         });
+    },
+
+    deleteProducts:(productId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:ObjectId.createFromHexString(productId)}).then((response)=>{
+                resolve(response);
+            })
+        })
     }
     
 }
