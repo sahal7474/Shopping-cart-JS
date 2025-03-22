@@ -29,6 +29,29 @@ module.exports={
                 resolve(response);
             })
         })
+    },
+
+    getProductDetails:(productId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:ObjectId.createFromHexString(productId)}).then((product)=>{
+                resolve(product)
+            })
+        })
+    },
+
+    updateProduct:(productId,product)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId.createFromHexString(productId)},{
+                $set:{
+                    productName:product.productName,
+                    category:product.category,
+                    price:product.price,
+                    description:product.description
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
     }
     
 }
